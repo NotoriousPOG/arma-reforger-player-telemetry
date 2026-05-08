@@ -1,6 +1,10 @@
 # PlayerTelemetry
 
+[![Reforger Workshop](https://img.shields.io/badge/Reforger%20Workshop-Player%20%26%20Base%20Live%20Data-blue)](https://reforger.armaplatform.com/workshop/1CDFD252B4101366-Player%2526BaseLiveData)
+
 A server-side Arma Reforger Workbench mod that streams live game state to any HTTPS endpoint as JSON. Designed as the data layer for live tracking maps, after-action reports, dashboards, analytics, and any other tooling that benefits from a real-time view of your server.
+
+**Available on the Reforger Workshop:** [Player & Base Live Data](https://reforger.armaplatform.com/workshop/1CDFD252B4101366-Player%2526BaseLiveData)
 
 ## What it does
 
@@ -38,8 +42,8 @@ The snapshot is serialized via `SCR_JsonSaveContext`, authenticated with a beare
 
 ## Installation
 
-1. Subscribe to / install the mod the same way you install any Reforger server-side mod (Workshop or addon folder).
-2. Add `PlayerTelemetry` to your server's mod list.
+1. Subscribe to **[Player & Base Live Data](https://reforger.armaplatform.com/workshop/1CDFD252B4101366-Player%2526BaseLiveData)** on the Reforger Workshop, or drop the mod folder into your server's addons directory if you're building from source.
+2. Add `Player & Base Live Data` (mod ID `1CDFD252B4101366`) to your server's mod list.
 3. Start the server once. The mod auto-writes an empty config template to `$profile:PlayerTelemetry/config.json` and exits with a warning.
 4. Fill in the required fields (see below) and restart the server.
 
