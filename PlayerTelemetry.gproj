@@ -1,0 +1,14 @@
+GameProject {
+ ID "PlayerTelemetry"
+ GUID "1CDFD252B4101366"
+ TITLE "PlayerTelemetry"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+ Configurations {
+  GameProjectConfig PC {
+  }
+  GameProjectConfig HEADLESS {
+  }
+ }
+}

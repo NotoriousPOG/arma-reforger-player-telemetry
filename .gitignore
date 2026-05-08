@@ -1,0 +1,18 @@
+# Workbench-managed asset cache — regenerated on every project open.
+*.rdb
+
+# Workbench backup folder
+Backup/
+
+# Handler scripts injected by tooling — should never be committed.
+Scripts/WorkbenchGame/EnfusionMCP/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
