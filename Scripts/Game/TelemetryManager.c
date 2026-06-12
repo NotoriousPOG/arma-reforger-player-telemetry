@@ -85,7 +85,7 @@ class TelemetryManager
 			return;
 		}
 
-		if (m_RuntimeConfig.EndpointHost == "")
+		if (NormalizeHost(m_RuntimeConfig.EndpointHost) == "")
 		{
 			Print("[Telemetry] EndpointHost is empty in profile config — telemetry disabled until set.", LogLevel.WARNING);
 			return;
@@ -113,7 +113,7 @@ class TelemetryManager
 		GetGame().GetCallqueue().CallLater(OnTick, periodMs, true);
 		m_bStarted = true;
 
-		Print("[Telemetry] Started. Host=" + m_RuntimeConfig.EndpointHost +
+		Print("[Telemetry] Started. Host=" + NormalizeHost(m_RuntimeConfig.EndpointHost) +
 			  " Path=" + m_RuntimeConfig.EndpointPath +
 			  " Tag=" + m_RuntimeConfig.ServerTag +
 			  " EveryMs=" + periodMs, LogLevel.NORMAL);
@@ -285,13 +285,33 @@ class TelemetryManager
 		return 0;
 	}
 
+	// EndpointHost is documented as a bare hostname (the code forces https://).
+	// Operators routinely paste a full URL anyway, e.g. "https://host" or
+	// "host/". Left unhandled that produces "https://https://host", which
+	// makes every POST fail. Normalize defensively: strip a leading scheme
+	// and any trailing slash. Uses only verified string methods
+	// (IndexOf/Length/Substring), matching the patterns already in
+	// TelemetryProfileConfig.c.
+	protected string NormalizeHost(string host)
+	{
+		int sep = host.IndexOf("://");
+		if (sep >= 0)
+			host = host.Substring(sep + 3, host.Length() - sep - 3);
+
+		int len = host.Length();
+		if (len > 0 && host.Substring(len - 1, 1) == "/")
+			host = host.Substring(0, len - 1);
+
+		return host;
+	}
+
 	protected void PostSnapshot(string body)
 	{
 		RestApi api = GetGame().GetRestApi();
 		if (!api)
 			return;
 
-		string baseUrl = "https://" + m_RuntimeConfig.EndpointHost;
+		string baseUrl = "https://" + NormalizeHost(m_RuntimeConfig.EndpointHost);
 		RestContext ctx = api.GetContext(baseUrl);
 		if (!ctx)
 			return;
